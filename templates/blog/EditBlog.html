@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %} Edit Post{% endblock title %}
+
+{% block body %} 
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto" style="min-height:100vh">
+            <br>
+            <figure class="text-center py-3">
+                <h1>Add a New Blog</h1>
+            </figure>
+            <hr>
+            <br>
+            <form name="sentMessage" id="contactForm" action="/blog/edit/{{post.slug}}" method="POST" novalidate  class="needs-validation">
+                {% csrf_token %} 
+                <br>
+              <div class="form-floating">
+                  <input type="text" class="form-control" name="title" id="title" placeholder="Title" value="{{post.title}}" required>
+                  <label for="title">Title</label>
+                  <div class="invalid-feedback">Please enter a title.</div>
+              </div>
+              <br>
+              <div class="form-floating">
+                  <textarea name="editor1" required>{{post.content}}</textarea><br>
+                  <label for="editor1">Content</label>
+                  <div class="invalid-feedback">Please enter content.</div>
+              </div>
+              <br>
+              <div class="mb-3 row">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="Current Image" class="img-thumbnail col-md-3" style="width: 100px; height: 120px;">
+                    <input type="file" class=" mt-5 col-md-5" id="img_file" name="img_file">
+                {% else %}
+                    <input type="file" class="form-control" id="img_file" name="img_file">
+                {% endif %}
+                <div class="invalid-feedback">Please choose an image.</div>
+            </div>            
+              <br>
+              <div id="success"></div>
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary w-100 mb-4 px-4 py-3" id="sendMessageButton">Submit</button>
+              </div>
+          </form>
+               </div>
+    </div>
+</div>
+
+
+
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>  
+    
+<script>  
+    CKEDITOR.replace('editor1');  
+  
+    function getData() {  
+        var editor_data = CKEDITOR.instances['editor1'].getData();  
+        CKEDITOR.instances['editor1'].setData(editor_data);  
+    }  
+</script>
+  
+
+
+
+{% endblock %}

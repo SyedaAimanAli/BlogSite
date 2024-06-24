@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block title %} Contact{% endblock title %}
+
+{% block body %}
+<main class="main pt-4" style="min-height:100vh">
+  
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          {% for message in messages  %}            
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <strong>Message : </strong> {{ message }}
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+          {% endfor %}
+
+          <article class="card mb-4" style="background-color: #fff; border: none;">
+            <header class="card-header text-center" style="background-color: #fff;">
+              <figure class="text-center py-3" >
+                <h1 class="display-5">Get in touch</h1>
+            </figure>
+            <hr>
+            </header>
+            <div class="card-body" style="border: none;">
+
+              <p><strong>Your questions and comments are important to us. We've got everything covered for your needs</strong></p>
+
+              <p>If you require any further information, please feel free to reach out to us.</p>
+
+              <form name="sentMessage" id="contactForm" action="/contact/" method="POST" novalidate>
+                {% csrf_token %}  
+                <br>
+                  <div class="form-floating ">
+                    <input type="text" class="form-control form-control-lg" name="name" id="Name" placeholder="Name" >
+                    <label for="Name">Name</label>
+                  </div>
+                  <br>
+                  <div class="form-floating ">
+                    <input type="text" class="form-control form-control-lg" id="email" name="email" placeholder="email" >
+                    <label for="email">Email</label>
+                  </div>
+                  <br>
+                  <div class="form-floating ">
+                    <input type="text" class="form-control form-control-lg" id="phone" name="phone" placeholder="Phone" >
+                    <label for="phone">Phone Number</label>
+                  </div>
+                  <br>
+                  <div class="form-floating ">
+                    <textarea row="8" type="text" class="form-control form-control-lg" id="msg" name="content" placeholder="What can we help you with?" ></textarea>
+                    <label for="msg">What can we help you with?</label>
+                  </div>
+                  <br>
+                  <div class="h-captcha" data-captcha="true"></div>
+                  <div id="success"></div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary px-3 py-3 w-100" id="sendMessageButton">Send</button>
+                  </div>
+              </form>
+
+            </div>
+          </article><!-- /.card -->
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+    
+
+{% endblock %}

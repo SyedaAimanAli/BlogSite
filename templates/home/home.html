@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %} Home {% endblock title %}
+
+{% block body %}
+<div class="container">
+    <div class="jumbotron py-5 my-3 px-4 " style="background-color: #ECECEC;">
+      <h1 class="display-4">Welcome to iCoder!</h1>
+      <p class="lead">For all your programming needs.</p>
+      <hr class="my-4">
+      <p>Here you can find best coding articles, which can help you learn coding :)</p>
+      <a class="btn btn-primary btn-lg" href="/blog/" role="button">Go to Blog</a>
+    </div>
+    <br>
+    <h2>Popular Blogposts</h2>
+    <br>
+    {% for post in posts %}
+    <div class="card mb-2">
+        <div class="row no-gutters">
+            <div class="col-md-10 ">
+                <div class="card-body p-4" style="height:250px;">
+                    <strong class="card-title d-inline-block mb-2 text-primary">Article by {{ post.author }} ({{post.views}})</strong>
+                    <h3 class="card-text mb-0">{{ post.title }}</h3>
+                    <div class="my-2 text-muted"><small>{{post.timeStamp}}</small></div>
+                    <p class="card-text mb-auto">{{post.content|safe| truncatechars:500}}</p>
+                    <div class="mt-4">
+                        <a href="/blog/{{post.slug}}" role="button" class="btn btn-primary">Continue reading</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <img src="/media/{{ post.image }}" class="card-img" alt="Post Image" width="200px" height="250px">
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+        </div>
+  </div>
+
+ {% endblock %}
